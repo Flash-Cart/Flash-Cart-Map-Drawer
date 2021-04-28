@@ -28,14 +28,48 @@ aside {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 3%;
   padding: 10px 0;
+  background: white;
+  box-shadow: 10px 0 5px -2px  rgba(0, 0, 0, 0.25);
+  border: 1px solid white;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+h2 {
+  font-weight: bold;
+  color: #F97D7D;
+}
+
+.topbar {
+  background: #F97D7D;
+  overflow: hidden;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+  height: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.topbar-span {
+  float: left;
+  color: #f2f2f2;
+  font-weight: bold;
+  text-align: center;
+  align-items: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 3vh;
 }
 
 .shape {
   margin: 10px;
   height: 100px;
   width: 150px;
-  border: solid 2px black;
+  border: solid 2px #F97D7D;
+  background-color: #F97D7D;
 }
 
 .circle {
@@ -46,7 +80,14 @@ aside {
 .panel {
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  align-items: center;
+  margin-top: 3%;
+  padding: 10px 0;
+  background: white;
+  box-shadow: -2px 0 5px 2px  rgba(0, 0, 0, 0.25);
+  border: 1px solid white;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .properties {
@@ -54,7 +95,8 @@ aside {
 }
 
 .key {
-  color: lightslategray;
+  color: #F97D7D;
+  font-size: 2vh;
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -63,12 +105,12 @@ aside {
 }
 
 .value {
-  color: darkslategray;
+  color: #F97D7D;
   font-weight: bolder;
 }
 
 .no-data {
-  color: darkslategray;
+  color: grey;
 }
 
 .canvas {
@@ -82,22 +124,26 @@ aside {
 .buttons {
   display: flex;
   position: absolute;
-  top: 0;
+  bottom: 0;
   right: 0;
 }
 
 .buttons button {
-  margin: 4px;
-  height: 30px;
+  margin: 10px;
+  height: 50px;
   text-transform: uppercase;
   cursor: pointer;
-  background: lightgray;
+  background: #F97D7D;
   transition: all 0.25s ease-in;
   z-index: 10;
   padding: 0 8px;
-  border-radius: 4px;
+  border-radius: 100px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-weight: bold;
+  font-size: 2vh;
+  color: white;
 }
 
 .buttons button:hover {
-  background: darkgray;
+  background: #f36666;
 }

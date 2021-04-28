@@ -22,10 +22,21 @@ const setState = (fn) => useShapes.set(produce(fn));
 
 export const saveDiagram = () => {
   const state = useShapes.get();
+  const filename = 'market-map';
+  const element  = document.createElement('a');
+  const result = convert.json2xml(state.shapes, {compact: true, spaces: 4});
 
   localStorage.setItem(APP_NAMESPACE, JSON.stringify(state.shapes));
-  const result = convert.json2xml(state.shapes, {compact: true, spaces: 4});
-  console.log(result);
+
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(result));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
 };
 
 export const reset = () => {

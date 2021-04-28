@@ -5,15 +5,15 @@ export const SHAPE_TYPES = {
 
 export const DEFAULTS = {
   RECT: {
-    STROKE: "#000000",
-    FILL: "#ffffff",
+    STROKE: "#F97D7D",
+    FILL: "#F97D7D",
     WIDTH: 150,
     HEIGHT: 100,
     ROTATION: 0,
   },
   CIRCLE: {
-    STROKE: "#000000",
-    FILL: "#ffffff",
+    STROKE: "#F97D7D",
+    FILL: "#F97D7D",
     RADIUS: 50,
   },
 };
