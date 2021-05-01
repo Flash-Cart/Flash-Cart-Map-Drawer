@@ -2,7 +2,6 @@ import { createStore } from "@halka/state";
 import produce from "immer";
 import clamp from "clamp";
 import { nanoid } from "nanoid";
-import * as convert from 'xml-js';
 
 import { SHAPE_TYPES, DEFAULTS, LIMITS } from "../constants/constants";
 
@@ -23,20 +22,18 @@ const setState = (fn) => useShapes.set(produce(fn));
 export const saveDiagram = () => {
   const state = useShapes.get();
   const filename = 'market-map';
-  const element  = document.createElement('a');
-  const result = convert.json2xml(state.shapes, {compact: true, spaces: 4});
+  const result = state.shapes;
 
-  localStorage.setItem(APP_NAMESPACE, JSON.stringify(state.shapes));
+  localStorage.setItem(APP_NAMESPACE, JSON.stringify(result));
+  console.log(result)
 
-  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(result));
-  element.setAttribute('download', filename);
-
-  element.style.display = 'none';
-  document.body.appendChild(element);
-
-  element.click();
-
-  document.body.removeChild(element);
+  var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(result));
+  var downloadAnchorNode = document.createElement('a');
+  downloadAnchorNode.setAttribute("href",     dataStr);
+  downloadAnchorNode.setAttribute("download", filename + ".json");
+  document.body.appendChild(downloadAnchorNode); // required for firefox
+  downloadAnchorNode.click();
+  downloadAnchorNode.remove();
 };
 
 export const reset = () => {
