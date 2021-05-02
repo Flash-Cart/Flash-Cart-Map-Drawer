@@ -2,6 +2,7 @@ import { createStore } from "@halka/state";
 import produce from "immer";
 import clamp from "clamp";
 import { nanoid } from "nanoid";
+import { firebaseApp } from '../base';
 
 import { SHAPE_TYPES, DEFAULTS, LIMITS } from "../constants/constants";
 
@@ -19,21 +20,22 @@ export const useShapes = createStore(() => {
 });
 const setState = (fn) => useShapes.set(produce(fn));
 
-export const saveDiagram = () => {
+export const saveDiagram = (content, contentType) => {
   const state = useShapes.get();
-  const filename = 'market-map';
+  const filename = 'market-map-data';
   const result = state.shapes;
 
   localStorage.setItem(APP_NAMESPACE, JSON.stringify(result));
-  console.log(result)
 
-  var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(result));
-  var downloadAnchorNode = document.createElement('a');
-  downloadAnchorNode.setAttribute("href",     dataStr);
-  downloadAnchorNode.setAttribute("download", filename + ".json");
-  document.body.appendChild(downloadAnchorNode); // required for firefox
-  downloadAnchorNode.click();
-  downloadAnchorNode.remove();
+  var dataStr = JSON.stringify(result);
+  const file = new File([dataStr], filename + ".txt", {type: "text/plain;charset=utf-8"});
+
+  const storageRef = firebaseApp.storage().ref();
+  const fileRef = storageRef.child(filename + '.txt');
+  var metadata = { contentType: 'text/plain', };
+  fileRef.put(file, metadata).then(() => {
+    console.log("JSON uploaded");
+  })
 };
 
 export const reset = () => {
