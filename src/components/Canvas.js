@@ -11,9 +11,7 @@ import {
 } from "../state/state";
 import { DRAG_DATA_KEY, SHAPE_TYPES } from "../constants/constants";
 import { Shape } from "../constants/Shape";
-import { firebaseApp } from '../base';
-
-
+import { db } from '../base';
 
 const handleDragOver = (event) => event.preventDefault();
 
@@ -23,17 +21,16 @@ export function Canvas() {
   const stageRef = useRef();
 
   const handleExport = useCallback(() => {
-    const filename = 'market-map-image'
     const uri = stageRef.current.toDataURL();
 
-    const dataStr = "data:text/plain,base64,aGVsbG8gd29ybGQ=" + encodeURIComponent(uri);
-    const file = new File([dataStr], filename + ".txt", {type: "text/plain;charset=utf-8"});
-
-    const storageRef = firebaseApp.storage().ref();
-    const fileRef = storageRef.child(filename + '.txt');
-    const metadata = { contentType: 'text/plain', };
-    fileRef.put(file, metadata).then(() => {
-      console.log("Base64 image uploaded");
+    db.collection('Carts').doc('LQ7lrMxGTPpHFEV4JHmZ').collection('Maps').doc('yjsPGvMBMpYtZYXNkep2').set({
+      picture: uri
+    })
+    .then(() => {
+      alert('Map sucessfully written!');
+    })
+    .catch((error) => {
+      console.error("Error writing document: ", error);
     })
   }, []);
 
